@@ -3,7 +3,7 @@ import {Route, Switch} from "react-router-dom";
 // import axios from "axios";
 import AddTask from "./AddTask";
 import Tasks from "./Tasks";
-import NavBar from "../navbar/NavBar";
+import NavBar from "./NavBar";
 
 class App extends Component {
     constructor(props) {
