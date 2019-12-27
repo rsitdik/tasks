@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import {connect} from "react-redux";
+import {addTask} from "../store/actions/taskActions"
 
 class AddTask extends Component {
     constructor(props) {
@@ -48,4 +50,4 @@ class AddTask extends Component {
     }
 }
 
-export default AddTask;
+export default connect(null, {addTask}) (AddTask);
