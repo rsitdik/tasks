@@ -1,10 +1,9 @@
 import React, {Component} from 'react';
 import {Route, Switch} from "react-router-dom";
-import axios from "axios";
+// import axios from "axios";
 import AddTask from "./AddTask";
-import "./App.css";
 import Tasks from "./Tasks";
-import NavBar from "./navbar/NavBar";
+import NavBar from "./NavBar";
 
 class App extends Component {
     constructor(props) {
@@ -13,6 +12,7 @@ class App extends Component {
         this.state = {
             tasks: []
         };
+
         this.deleteTask = this.deleteTask.bind(this);
         this.addTask = this.addTask.bind(this);
     }
@@ -29,11 +29,6 @@ class App extends Component {
         })
     }
 
-    // // 3 вызывается, когда обновились props или state
-    // componentDidUpdate(prevProps, prevState, snapshot) {
-    //     console.log("componentDidUpdate")
-    // }
-    //
     // // 4 вызывается тогда, когда нужно синхронизировать новыке пропсы со стейтом,  обновление выполняется путем
     // // возвращения нового стейта, если ничего не обновилось, то возврат null, используется редко
     // static getDerivedStateFromProps(nextProps, prevState) {
@@ -42,14 +37,25 @@ class App extends Component {
 
     // 2 используется часто
     componentDidMount() {
-        axios.get(
-            "http://jsonplaceholder.typicode.com/todos"
-        )
-                   .then(res =>{
-                this.setState({
-                    tasks: res.data // в  data  лежат полученные данные
-                })
-            })
+        const localTasks = JSON.parse(localStorage.getItem("tasks"));
+        if (localTasks) {
+            this.setState({tasks: localTasks})
+        }
+
+        // axios.get(
+        //     "http://jsonplaceholder.typicode.com/todos"
+        // )
+        //            .then(res =>{
+        //         this.setState({
+        //             tasks: res.data // в  data  лежат полученные данные
+        //         })
+        //     })
+    }
+
+    // 3 вызывается, когда обновились props или state
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        const tasks = JSON.stringify(this.state.tasks);
+        localStorage.setItem("tasks", tasks);
     }
 
     // 1 вызывается первым
@@ -63,7 +69,7 @@ class App extends Component {
                     {/*самый корневой компонент "/" должен быть в самом низу*/}
                     <Route exach path="/"
                            render={() => {
-                               return <Tasks tasks={this.state.tasks} delete={this.deleteTask}/>
+                               return <Tasks tasks={this.state.tasks} deleteTask={this.deleteTask}/>
                            }}/>
                 </Switch>
             </div>
@@ -72,5 +78,3 @@ class App extends Component {
 }
 
 export default App;
-
-// axios.get("http://localhost:8080/correction/all")
