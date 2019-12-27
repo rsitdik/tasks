@@ -2,9 +2,8 @@ import React, {Component} from 'react';
 import {Route, Switch} from "react-router-dom";
 // import axios from "axios";
 import AddTask from "./AddTask";
-import "./App.css";
 import Tasks from "./Tasks";
-import NavBar from "./navbar/NavBar";
+import NavBar from "../navbar/NavBar";
 
 class App extends Component {
     constructor(props) {
@@ -16,7 +15,6 @@ class App extends Component {
 
         this.deleteTask = this.deleteTask.bind(this);
         this.addTask = this.addTask.bind(this);
-        this.updateLocalStorage = this.updateLocalStorage.bind(this);
     }
 
     addTask(task) {
@@ -56,10 +54,6 @@ class App extends Component {
 
     // 3 вызывается, когда обновились props или state
     componentDidUpdate(prevProps, prevState, snapshot) {
-        this.updateLocalStorage();
-    }
-
-    updateLocalStorage() {
         const tasks = JSON.stringify(this.state.tasks);
         localStorage.setItem("tasks", tasks);
     }
@@ -75,7 +69,7 @@ class App extends Component {
                     {/*самый корневой компонент "/" должен быть в самом низу*/}
                     <Route exach path="/"
                            render={() => {
-                               return <Tasks tasks={this.state.tasks} delete={this.deleteTask}/>
+                               return <Tasks tasks={this.state.tasks} deleteTask={this.deleteTask}/>
                            }}/>
                 </Switch>
             </div>
@@ -84,5 +78,3 @@ class App extends Component {
 }
 
 export default App;
-
-// axios.get("http://localhost:8080/correction/all")

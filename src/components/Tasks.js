@@ -11,7 +11,7 @@ class Tasks extends Component {
                         key={task.id}
                         id={task.id}
                         title={task.title}
-                        delete={this.props.delete}/>
+                        deleteTask={this.props.deleteTask}/>
                 }):
                     (
                         [<h1>Загрузка</h1>]
