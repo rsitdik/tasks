@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {Route, Switch} from "react-router-dom";
-// import axios from "axios";
 import AddTask from "./AddTask";
 import Tasks from "./Tasks";
 import NavBar from "./NavBar";
@@ -29,27 +28,12 @@ class App extends Component {
         })
     }
 
-    // // 4 вызывается тогда, когда нужно синхронизировать новыке пропсы со стейтом,  обновление выполняется путем
-    // // возвращения нового стейта, если ничего не обновилось, то возврат null, используется редко
-    // static getDerivedStateFromProps(nextProps, prevState) {
-    //     return null;
-    // }
-
     // 2 используется часто
     componentDidMount() {
         const localTasks = JSON.parse(localStorage.getItem("tasks"));
         if (localTasks) {
             this.setState({tasks: localTasks})
         }
-
-        // axios.get(
-        //     "http://jsonplaceholder.typicode.com/todos"
-        // )
-        //            .then(res =>{
-        //         this.setState({
-        //             tasks: res.data // в  data  лежат полученные данные
-        //         })
-        //     })
     }
 
     // 3 вызывается, когда обновились props или state

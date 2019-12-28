@@ -12,5 +12,4 @@ const app = (
 
 render(
     app,
-    // <App/>,
     document.getElementById("root"));
